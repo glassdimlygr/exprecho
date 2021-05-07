@@ -21,8 +21,9 @@ app.use((req, res, next) => {
     console.log('\x1b[32m \nRequest headers: \x1b[0m', req.headers);
     console.log('\x1b[32m \nRequest cookies: \x1b[0m', req.cookies);
     console.log('\x1b[32m \nRequest query: \x1b[0m', req.query);
-    console.log('\x1b[32m \nRequest body: \x1b[0m', req.body);
+    // console.log('\x1b[32m \nRequest body: \x1b[0m', req.body);
     console.log('\n\x1b[31m ----------- NEXT ----------- \x1b[0m');
+    console.log(`\n\n\n\n${req.protocol + '://' + req.get('host') + req.originalUrl}\n\n\n\n`)
     next();
 });
 
@@ -48,5 +49,12 @@ app.get('/echo/query', (req, res) =>{
     res.json(req.query);
 });
 
+
+/**
+ * Echo headers as JSON
+ * */
+ app.all('*', (req, res) =>{
+    res.json(req.headers);
+});
 
 module.exports = app;
